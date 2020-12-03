@@ -32,31 +32,60 @@ def testReadInput(readInput):
 
     return True
 
+def countTressForStartingPosAndVector(input, startX, startY, divX, divY):
 
-def processA(input):
-
-    count = 0
-
-    startX = 0
-    divX = 3
-    currX = startX + divX
+    currX = startX
+    currY = startY
     
     rowLength = len(input[0])
+    colLength = len(input)
     
-    for row in input[1:]:
+    count = 0
+    
+    currentRow = 0
+    
+    while currY < colLength:
+        row = input[currY]
         if row[currX % rowLength] == '#':
             count = count + 1
         
         currX = currX + divX
-
+        currY = currY + divY
+        
+        
     return count
+
+def processA(input):
+
+    return countTressForStartingPosAndVector(input, 0,0,  3, 1)
 
 def processB(input):
 
-    count = 0
+    count = [0]*5
 
-    return count
+    count[0] = countTressForStartingPosAndVector(input, 0,0, 1,1)
+    count[1] = countTressForStartingPosAndVector(input, 0,0, 3,1)
+    count[2] = countTressForStartingPosAndVector(input, 0,0, 5,1)
+    count[3] = countTressForStartingPosAndVector(input, 0,0, 7,1)
+    count[4] = countTressForStartingPosAndVector(input, 0,0, 1,2)
 
+    output = 1
+    for i in count:
+        output = i * output
+
+    return output
+
+def testProcessA(input):
+    if processA(input) != 167:
+        return False
+    return True
+
+def testExampleInput(input):
+
+    if processB(input) != 336:
+        print(processB(input))
+        return False
+    return True
 
 ######################
 if __name__ == '__main__':
@@ -65,6 +94,9 @@ if __name__ == '__main__':
     data = readInputFile("input.txt")
     data = stripAllElementsInList(data)
 
+    testData = readInputFile("inputTest.txt")
+    testData = stripAllElementsInList(testData)
+               
     #test if input reading is correct
     if not testReadInput(data):
         print("Incorrect input!!")
@@ -75,6 +107,14 @@ if __name__ == '__main__':
 
         a = processA(data)
         print("Result A count=%d" % a)
+
+        if not testProcessA(data):
+            print("Incorrect value from task A!!")
+
+        print("Test example data")
+        if not testExampleInput(testData):
+            print("Incorrect value for example data!!")
+        print("End test example data")
 
         a = processB(data)
         print("Result B count=%d" % a)
