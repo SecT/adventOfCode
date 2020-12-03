@@ -102,6 +102,19 @@ def processA(input):
 
     return len(input) - invalidPasswordsCount
 
+def processB(input):
+
+    invalidPasswordsCount = 0
+
+    for policy, password in input:
+        firstPos, secondPos, letter = splitPolicyIntoRangeAndLetter(policy)
+
+        if (password[firstPos-1] == letter and password[secondPos-1] == letter) or (password[firstPos-1] != letter and password[secondPos-1] != letter):
+            invalidPasswordsCount = invalidPasswordsCount + 1
+
+    return len(input) - invalidPasswordsCount
+
+
 ######################
 if __name__ == '__main__':
     print("Task")
@@ -120,8 +133,9 @@ if __name__ == '__main__':
         a = processA(data)
         print("Result A count=%d" % a)
 
-        #a,b,c = processB(data)
-        #print("Result B a=%d,b=%d,c=%d  Product: %d" % (a,b,c, a*b*c))
+        a = processB(data)
+        print("Result B count=%d" % a)
+
 
 
     print("Task End")
