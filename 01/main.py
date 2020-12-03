@@ -53,6 +53,21 @@ def process(input):
                 
     return a,b
 
+def processB(input):
+    a = 0
+    b = 0
+    c = 0
+
+    wantedTotal = 2020
+
+    for i in input[1:]:
+        for j in input:
+            for k in input:
+                if i+j+k == wantedTotal:
+                    return i,j,k
+
+    return a,b,c
+
 ######################
 if __name__ == '__main__':
     print("Task")
@@ -66,7 +81,10 @@ if __name__ == '__main__':
         print("Incorrect input!!")
     else:
         a,b = process(data)
-        print("Result a=%d,b=%d  Product: %d" % (a,b, a*b))
+        print("Result A a=%d,b=%d  Product: %d" % (a,b, a*b))
+
+        a,b,c = processB(data)
+        print("Result B a=%d,b=%d,c=%d  Product: %d" % (a,b,c, a*b*c))
 
 
     print("Task End")
