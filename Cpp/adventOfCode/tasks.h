@@ -9,8 +9,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-bool test_splitString();
-bool test_trimWhitespace();
+
 
 ///////////////////////////////////////TASK 2020 01////////////////////////////////////////////////////////
 bool testReadingFileForTask_2020_01(std::vector<string>& inputData);

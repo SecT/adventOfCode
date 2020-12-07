@@ -8,6 +8,7 @@ using std::endl;
 using std::string;
 
 #include "tasks.h"
+#include "helpers.h"
 
 bool readLinesFromFileToVector(std::vector<string>& inputData, string filePath)
 {
