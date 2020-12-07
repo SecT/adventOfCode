@@ -113,8 +113,6 @@ int processTask_2020_02_A(std::vector<std::string> inputData)
         if ( letterCount < record.a || letterCount > record.b)
         {
             invalidPasswordCount++;
-
-            //cout<<"Invalid! row:"<<row<<" a:"<<record.a<<" b:"<<record.b<<" letter:"<<record.letter<<" pass:"<<record.password<<"^^"<<endl;
         }
     }
     cout<<"Size:"<<inputData.size()<<endl;
@@ -246,6 +244,72 @@ bool test_convertRowToRecord()
     {
         cout<<"test_convertRowToRecord  record.a:"<<record.a<<" record.b:"<<record.b<<" record.letter:"<<record.letter<<" record.password:"<<record.password<<"^^"<<endl;
     }
+
+    return result;
+}
+
+
+///////////////////////////////////////TASK 2020 03////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_03(std::vector<string>& inputData)
+{
+    if(inputData[0] != ".............#...#....#.....##." || inputData[1] != ".#...##.........#.#.........#.#" || inputData[inputData.size()-1] != ".#...##..##.#.........#.##...#.")
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool testTask_2020_03_A(int result)
+{
+    return result == 167;
+}
+
+bool testTask_2020_03_B(int result)
+{
+    return result == 736527114;
+}
+
+int calculateTreesOnPath(std::vector<std::string> inputData, int startX, int startY, int dX, int dY)
+{
+    int treeCount = 0;
+
+    unsigned int currentRow = 0;
+    unsigned int currentCol = 0;
+
+    while(currentRow < inputData.size())
+    {
+        if(inputData[currentRow][currentCol] == '#')
+        {
+            treeCount+=1;
+        }
+
+        currentCol = (currentCol + dX) % inputData[currentRow].length();
+        currentRow+=dY;
+    }
+
+    return treeCount;
+}
+
+int processTask_2020_03_A(std::vector<std::string> inputData)
+{
+    int result = 0;
+
+    result = calculateTreesOnPath(inputData, 0,0, 3,1);
+
+    return result;
+}
+
+int processTask_2020_03_B(std::vector<std::string> inputData)
+{
+    int result = 0;
+
+    result = calculateTreesOnPath(inputData, 0,0,  1,1);
+    result *= calculateTreesOnPath(inputData, 0,0, 3,1);
+    result *= calculateTreesOnPath(inputData, 0,0, 5,1);
+    result *= calculateTreesOnPath(inputData, 0,0, 7,1);
+    result *= calculateTreesOnPath(inputData, 0,0, 1,2);
+
 
     return result;
 }

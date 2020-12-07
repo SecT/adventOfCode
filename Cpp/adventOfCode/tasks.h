@@ -36,3 +36,10 @@ struct task2020_02_record
 
 task2020_02_record convertRowToRecord(string row);
 bool test_convertRowToRecord();
+
+///////////////////////////////////////TASK 2020 03////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_03(std::vector<string>& inputData);
+bool testTask_2020_03_A(int result);
+bool testTask_2020_03_B(int result);
+int processTask_2020_03_A(std::vector<string> inputData);
+int processTask_2020_03_B(std::vector<string> inputData);

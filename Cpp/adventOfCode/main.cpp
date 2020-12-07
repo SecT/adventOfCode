@@ -113,7 +113,45 @@ bool task_2020_02()
         return false;
     }
 
-       
+    return true;
+}
+
+bool task_2020_03()
+{
+    std::vector<std::string> inputData;
+    string filePath = "input_2020_Task_03.txt";
+    if(!readLinesFromFileToVector(inputData, filePath))
+    {
+        cout<<"Error reading file: "<<filePath<<endl;
+        return false;
+    }
+
+    if(!testReadingFileForTask_2020_03(inputData))
+    {
+        cout<<"File reading test failed!"<<endl;
+        return false;
+    }
+
+    int result_A = processTask_2020_03_A(inputData);
+
+    if(!testTask_2020_03_A(result_A))
+    {
+        cout<<"task 2020 03 A failed! Obtained result:"<<result_A<<endl;
+        return false;
+    }
+
+    cout<<"Task 2020 03 A result: "<<result_A<<endl;    
+
+
+    int result_B = processTask_2020_03_B(inputData);
+
+    cout<<"Task 2020 03 B result: "<<result_B<<endl; 
+
+    if(!testTask_2020_03_B(result_B))
+    {
+        cout<<"task 2020 03 B failed!"<<endl;
+        return false;
+    }
 
     return true;
 }
@@ -140,6 +178,7 @@ int main()
 
     task_2020_01();
     task_2020_02();
+    task_2020_03();
 
     cout<<"End"<<endl;
 
