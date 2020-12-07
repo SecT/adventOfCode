@@ -105,13 +105,15 @@ bool task_2020_02()
 
     int result_B = processTask_2020_02_B(inputData);
 
+    cout<<"Task 2020 02 B result: "<<result_B<<endl; 
+
     if(!testTask_2020_02_B(result_B))
     {
         cout<<"task 2020 02 B failed!"<<endl;
         return false;
     }
 
-    cout<<"Task 2020 02 B result: "<<result_B<<endl;    
+       
 
     return true;
 }

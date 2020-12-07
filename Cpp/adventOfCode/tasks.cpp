@@ -125,8 +125,22 @@ int processTask_2020_02_B(std::vector<std::string> inputData)
 {
     int result = 0;
 
+    int invalidPasswordCount = 0;
 
-    return result;
+    for (std::vector<string>::iterator i = inputData.begin(); i != inputData.end(); ++i)
+    {
+        string row = *i;
+
+        task2020_02_record record = convertRowToRecord(row);
+
+        if(!( (record.password[record.a-1] == record.letter[0]) ^ (record.password[record.b-1] == record.letter[0])))
+        {
+            invalidPasswordCount++;
+        }
+
+    }
+    cout<<"Size:"<<inputData.size()<<endl;
+    return inputData.size() - invalidPasswordCount;
 }
 
 
