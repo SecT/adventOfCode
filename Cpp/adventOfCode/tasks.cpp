@@ -116,7 +116,6 @@ int processTask_2020_02_A(std::vector<std::string> inputData)
             invalidPasswordCount++;
         }
     }
-    cout<<"Size:"<<inputData.size()<<endl;
     return inputData.size() - invalidPasswordCount;
 }
 
@@ -138,7 +137,6 @@ int processTask_2020_02_B(std::vector<std::string> inputData)
         }
 
     }
-    cout<<"Size:"<<inputData.size()<<endl;
     return inputData.size() - invalidPasswordCount;
 }
 
@@ -579,6 +577,178 @@ int processTask_2020_04_B( std::vector<task2020_04_passport>& passports)
             result++;
         }
     }
+
+    return result;
+}
+
+///////////////////////////////////////TASK 2020 04////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_05(std::vector<string>& inputData)
+{
+    if(inputData[0] != "FFFBFBFLRR" || inputData[1] != "FFBBFFFRLL" || inputData[inputData.size()-1] != "FFBBBFBRLL")
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool testTask_2020_05_A(int result)
+{
+    return result == 855;
+}
+
+bool testTask_2020_05_B(int result)
+{
+    return result == 0;
+}
+
+string convertCodeToBinaryString(string input)
+{
+        string binaryCode = "";
+
+    for(unsigned int i =0 ; i<input.length(); i++)
+    {
+        if(input[i] == 'F' || input[i] == 'L')
+        {
+            binaryCode+='0';
+        }
+        else if(input[i] == 'B' || input[i] == 'R')
+        {
+            binaryCode+='1';        
+        }
+    }
+    return binaryCode;
+}
+
+int convertBinaryStringToDec(string binaryString)
+{
+    int currentExp = binaryString.length()-1;
+
+    double val = std::pow(2.0, static_cast<int>(binaryString.length()) ) -1;
+
+    for(unsigned int i = 0; i< binaryString.length(); i++)
+    {
+        if(binaryString[i] == '0')
+        {
+            val -= std::pow(2.0, currentExp);
+
+        }
+            currentExp--;
+
+    }
+
+    return static_cast<int>(val);
+}
+
+int calculateRow(string input)
+{
+    int row = 0;
+
+    input = convertCodeToBinaryString(input);
+    row = convertBinaryStringToDec(input);
+    
+
+    return row;
+}
+
+int calculateCol(string input)
+{
+    int col = 0;
+
+    input = convertCodeToBinaryString(input);
+
+    col = convertBinaryStringToDec(input);
+
+
+    return col;
+}
+
+bool test_calculateRow()
+{
+    int val = calculateRow("FBFBBFF");
+    if( val == 44)
+    {    return true;}
+    else
+    {
+        cout<<"calculateRow val:"<<val<<endl;
+    }
+
+
+    return false;
+}
+
+bool test_calculateCol()
+{
+    int val = calculateCol("RLR");
+    if(val == 5)
+    {
+        return true;
+    }
+        else
+    {
+        cout<<"calculateCol val:"<<val<<endl;
+    }
+
+    return false;
+}
+
+int getSeatId(int row, int col)
+{
+    return row*8+col;
+}
+
+string getRowCode(string input)
+{
+    return input.substr(0,7);
+}
+
+string getColCode(string input)
+{
+    return input.substr(7,3);
+}
+
+int calculateSeatIdFromString(string input)
+{
+    string rowCode = getRowCode(input);
+    string colCode = getColCode(input);
+
+    int row = calculateRow(rowCode);
+    int col = calculateCol(colCode);
+
+    return getSeatId(row, col);
+}
+
+bool test_calculateSeatIdFromString()
+{
+    if(calculateSeatIdFromString("BFFFBBFRRR") != 567 || calculateSeatIdFromString("FFFBBBFRRR") != 119 || calculateSeatIdFromString("BBFFBBFRLL") != 820)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+int processTask_2020_05_A( std::vector<string> inputData)
+{
+
+    int currentMax = 0;
+
+    for(auto i = inputData.begin(); i != inputData.end(); i++)
+    {
+        int val = calculateSeatIdFromString(*i);
+
+        if( val > currentMax)
+        {
+            currentMax = val;
+        }
+    }
+
+    return currentMax;
+}
+
+int processTask_2020_05_B( std::vector<string> inputData)
+{
+    int result = 0;
 
     return result;
 }

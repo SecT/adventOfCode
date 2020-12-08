@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <utility>
 #include <cctype>
+#include <cmath>
 
 using std::cout;
 using std::endl;
@@ -53,8 +54,6 @@ bool testTask_2020_04_A_example(int result);
 bool testTask_2020_04_B_example_valid(int result);
 bool testTask_2020_04_B_example_invalid(int result);
 
-
-
 struct task2020_04_passport
 {
     string content;
@@ -68,3 +67,15 @@ bool test_fillOutFields();
 int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2020_04_passport>& validPassports);
 
 int processTask_2020_04_B( std::vector<task2020_04_passport>& validPassports);
+
+///////////////////////////////////////TASK 2020 05////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_05(std::vector<string>& inputData);
+bool testTask_2020_05_A(int result);
+bool testTask_2020_05_B(int result);
+
+bool test_calculateSeatIdFromString();
+bool test_calculateRow();
+bool test_calculateCol();
+
+int processTask_2020_05_A(std::vector<string> inputData);
+int processTask_2020_05_B(std::vector<string> inputData);

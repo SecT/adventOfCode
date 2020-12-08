@@ -278,6 +278,58 @@ bool task_2020_04()
     return true;
 }
 
+bool task_2020_05()
+{
+    std::vector<std::string> inputData;
+    string filePath = "input_2020_Task_05.txt";
+    if(!readLinesFromFileToVector(inputData, filePath))
+    {
+        cout<<"Error reading file: "<<filePath<<endl;
+        return false;
+    }
+
+    if(!testReadingFileForTask_2020_05(inputData))
+    {
+        cout<<"File reading test failed!"<<endl;
+        return false;
+    }
+
+        if(!test_calculateCol())
+    {
+        cout<<"test_calculateCol failed!"<<endl;    
+        return false;
+
+    }
+
+    if(!test_calculateRow())
+    {
+        cout<<"test_calculateRow failed!"<<endl;    
+        return false;
+
+    }
+
+
+
+    if(!test_calculateSeatIdFromString())
+    {
+        cout<<"test_calculateSeatIdFromString failed!"<<endl;    
+        return false;
+    }
+
+
+    int result_A = processTask_2020_05_A(inputData);
+
+    if(!testTask_2020_05_A(result_A))
+    {
+        cout<<"task 2020 05 A failed! Obtained result:"<<result_A<<endl;
+        return false;
+    }
+
+    cout<<"Task 2020 05 A result: "<<result_A<<endl;  
+
+    return true;
+}
+
 int main()
 {
     cout<<"Advent of Code"<<endl;
@@ -302,6 +354,8 @@ int main()
     task_2020_02();
     task_2020_03();
     task_2020_04();
+    task_2020_05();
+
 
     cout<<"End"<<endl;
 
