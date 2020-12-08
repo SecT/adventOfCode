@@ -157,6 +157,100 @@ bool task_2020_03()
     return true;
 }
 
+bool task_2020_04()
+{
+    std::vector<std::string> inputData;
+    string filePath = "input_2020_Task_04.txt";
+    if(!readLinesFromFileToVector(inputData, filePath))
+    {
+        cout<<"Error reading file: "<<filePath<<endl;
+        return false;
+    }
+
+    std::vector<std::string> exampleInputData;
+    string exampleFilePath = "input_2020_Task_04_example.txt";
+    if(!readLinesFromFileToVector(exampleInputData, exampleFilePath))
+    {
+        cout<<"Error reading file: "<<exampleFilePath<<endl;
+        return false;
+    }
+
+    std::vector<std::string> exampleInputData_valid;
+    string exampleFilePath_valid = "input_2020_Task_04_example_B_valid.txt";
+    if(!readLinesFromFileToVector(exampleInputData_valid, exampleFilePath_valid))
+    {
+        cout<<"Error reading file: "<<exampleFilePath_valid<<endl;
+        return false;
+    }
+
+    if(!testReadingFileForTask_2020_04(inputData))
+    {
+        cout<<"File reading test failed!"<<endl;
+        return false;
+    }
+
+    if(!test_getListOfPassports())
+    {
+        cout<<"getListOfPassports test failed!"<<endl;
+        return false;
+    }
+
+    if(!test_fillOutFields())
+    {
+        cout<<"fillOutFields test failed!"<<endl;
+        return false;
+    }
+    std::vector<task2020_04_passport> validPassportsExample;
+    int result_example = processTask_2020_04_A(exampleInputData, validPassportsExample);
+
+    if(!testTask_2020_04_A_example(result_example))
+    {
+        cout<<"task 2020 04 Example failed! Obtained result:"<<result_example<<endl;
+        return false;
+    }
+
+
+    std::vector<task2020_04_passport> validPassports;
+    int result_A = processTask_2020_04_A(inputData, validPassports);
+
+    cout<<"Task 2020 04 A result: "<<result_A<<endl;    
+
+    if(!testTask_2020_04_A(result_A))
+    {
+        cout<<"task 2020 04 A failed! Obtained result:"<<result_A<<endl;
+        return false;
+    }
+
+        std::vector<task2020_04_passport> validPassportsExample_B;
+       int result_example_B =   processTask_2020_04_A(exampleInputData_valid, validPassportsExample_B);
+
+       if(result_example_B != 4)
+       {
+        cout<<"task 2020 04 Example valid failed! Incorrect password count. Obtained result:"<<result_example_B<<endl;
+        return false;    
+       }
+
+       result_example_B = processTask_2020_04_B(validPassportsExample_B);
+
+    if(!testTask_2020_04_B_example_valid(result_example_B))
+    {
+        cout<<"task 2020 04 Example valid failed! Obtained result:"<<result_example_B<<endl;
+        return false;
+    }
+
+    //int result_B = processTask_2020_04_B(validPassports);
+
+    //cout<<"Task 2020 04 B result: "<<result_B<<endl; 
+
+    //if(!testTask_2020_04_B(result_B))
+    //{
+    //    cout<<"task 2020 04 B failed!"<<endl;
+    //    return false;
+    //}
+
+    return true;
+}
+
 int main()
 {
     cout<<"Advent of Code"<<endl;
@@ -180,6 +274,7 @@ int main()
     task_2020_01();
     task_2020_02();
     task_2020_03();
+    task_2020_04();
 
     cout<<"End"<<endl;
 

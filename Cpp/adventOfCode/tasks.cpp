@@ -251,3 +251,324 @@ int processTask_2020_03_B(std::vector<std::string> inputData)
 
     return result;
 }
+
+///////////////////////////////////////TASK 2020 04////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_04(std::vector<string>& inputData)
+{
+    if(inputData[0] != "byr:1971" || inputData[1] != "ecl:hzl pid:112040163" || inputData[2] != "eyr:2023 iyr:2019" || inputData[3] != "hcl:#b6652a hgt:167cm" 
+        || inputData[4] != ""
+        || inputData[5] != "pid:108667812 eyr:2023 hcl:#623a2f hgt:171cm iyr:2018 ecl:amb byr:1993"
+        || inputData[6] != ""
+        || inputData[7] != "hcl:#cfa07d iyr:2014 ecl:blu eyr:2023 cid:304 hgt:70in byr:1961"
+        || inputData[8] != ""
+        || inputData[inputData.size()-1] != "iyr:2017 ecl:blu byr:1942 hcl:#733820 eyr:2023 hgt:151cm pid:289923625")
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool testTask_2020_04_A(int result)
+{
+    return result == 192;
+}
+
+bool testTask_2020_04_A_example(int result)
+{
+    return result == 2;
+}
+
+bool testTask_2020_04_B(int result)
+{
+    return result == 0;
+}
+
+bool testTask_2020_04_B_example_valid(int result)
+{
+    return result == 4;
+}
+
+
+
+void getListOfPassports(std::vector<std::string>& inputData, std::vector<task2020_04_passport>& passports)
+{
+
+    bool readingPassport = false;
+
+    task2020_04_passport currentPassport;
+
+    for(std::vector<std::string>::iterator line = inputData.begin(); line != inputData.end(); line++)
+    {
+        if(*line != "")
+        {
+            if(!readingPassport)
+            {
+                readingPassport = true;
+            }
+
+            if(readingPassport)
+            {
+                currentPassport.content = currentPassport.content + (*line) + " ";
+            }
+
+            if(line+1 == inputData.end() && readingPassport)
+            {
+                //last line in file
+                currentPassport.content = trimWhitespace( currentPassport.content);
+                passports.push_back(currentPassport);
+            }
+
+            continue;
+        }
+
+        if(*line == "")
+        {
+            if(readingPassport)
+            {
+                currentPassport.content = trimWhitespace( currentPassport.content);
+                passports.push_back(currentPassport);
+                readingPassport = false;
+                currentPassport.content = "";
+                continue;
+            }
+        }
+
+    }
+
+}
+
+bool test_getListOfPassports()
+{
+    std::vector<std::string> inputData;
+
+    inputData.push_back("byr:1971");
+    inputData.push_back("ecl:hzl pid:112040163");
+    inputData.push_back("eyr:2023 iyr:2019");
+    inputData.push_back("hcl:#b6652a hgt:167cm");
+    inputData.push_back("");
+    inputData.push_back("pid:108667812 eyr:2023 hcl:#623a2f hgt:171cm iyr:2018 ecl:amb byr:1993");
+    inputData.push_back("");
+
+    std::vector<task2020_04_passport> passports;
+
+    getListOfPassports(inputData, passports);
+
+    if(passports[0].content != "byr:1971 ecl:hzl pid:112040163 eyr:2023 iyr:2019 hcl:#b6652a hgt:167cm")
+    {
+        cout<<"test_getListOfPassports failed! Content: "<<passports[0].content<<"^^"<<endl;
+        return false;
+    }
+
+    if(passports[1].content != "pid:108667812 eyr:2023 hcl:#623a2f hgt:171cm iyr:2018 ecl:amb byr:1993")
+    {
+        cout<<"test_getListOfPassports failed! Content: "<<passports[1].content<<"^^"<<endl;
+        return false;
+    }
+
+    return true;
+}
+
+void fillOutFields(task2020_04_passport& passport)
+{
+    string text = passport.content;
+    std::vector<string> pairsAsStrings;
+    splitString(text, pairsAsStrings, ' ');
+
+    for(std::vector<string>::iterator i = pairsAsStrings.begin(); i != pairsAsStrings.end(); i++)
+    {
+        std::vector<string> keyVal;
+
+        splitString((*i), keyVal, ':');
+
+        passport.fields.push_back(std::make_pair(keyVal[0], keyVal[1]));
+
+        if(keyVal[0] == "byr") passport.byr = keyVal[1];
+        if(keyVal[0] == "iyr") passport.iyr = keyVal[1];
+        if(keyVal[0] == "eyr") passport.eyr = keyVal[1];
+        if(keyVal[0] == "hgt") 
+        {
+            passport.hgt = passport.eyr = keyVal[1];
+            //passport.hgtUnit = keyVal[1].substr(keyVal[1].length()-2, keyVal[1].length()-1);
+
+            //string heightValAsStr = keyVal[1].substr(0, keyVal[1].length()-2);
+
+            //passport.hgtVal = std::stoi(heightValAsStr);
+        }
+        if(keyVal[0] == "hcl") passport.hcl = keyVal[1];
+        if(keyVal[0] == "ecl") passport.ecl = keyVal[1];
+        if(keyVal[0] == "pid") passport.pid = keyVal[1];
+
+    }
+}
+
+bool test_fillOutFields()
+{
+    task2020_04_passport passport;
+    passport.content = "byr:1971 pid:112040163 hcl:#b6652a hgt:167cm";
+
+    fillOutFields(passport);
+
+    if(passport.fields.size() == 4 && passport.fields[0].first == "byr" && passport.fields[0].second == "1971" && passport.fields[1].first == "pid" && passport.fields[1].second == "112040163"
+        && passport.fields[2].first == "hcl" && passport.fields[2].second == "#b6652a"
+        )
+    {
+        return true;
+    }
+
+    return false;
+}
+
+int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2020_04_passport>& validPassports)
+{
+    int result = 0;
+
+
+    std::vector<task2020_04_passport> passports;
+    getListOfPassports(inputData, passports);
+
+    cout<<"Number of passports:"<<passports.size()<<endl;
+
+    for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
+    {
+        fillOutFields(*passport);
+    }
+
+    for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
+    {
+        if((*passport).fields.size() == 8)
+        {
+            result++;
+            continue;
+        }
+
+        if((*passport).fields.size() == 7)
+        {
+            bool cidFound = false;
+
+            for(auto field = (*passport).fields.begin(); field != (*passport).fields.end(); field++ )
+            {
+                if((*field).first == "cid") 
+                {
+                    cidFound = true;
+                    break;
+                }
+            }
+
+            if( !cidFound )
+            {
+                result++;
+                validPassports.push_back(*passport);
+            }
+        }
+
+    }
+
+    return result;
+}
+
+bool validatePassport(task2020_04_passport& passport)
+{
+    try{
+        if(std::stoi(passport.byr) < 1920 || std::stoi(passport.byr) > 2002) {
+            return false;
+        }
+        if(std::stoi(passport.iyr) < 2010 || std::stoi(passport.iyr) > 2020) 
+        {return false;}
+        if(std::stoi(passport.eyr) <2020 || std::stoi(passport.eyr) > 2030) {
+            return false;
+        }
+
+        if(passport.hgt.find("cm") !=std::string::npos )
+        {
+            int cmPos = passport.hgt.find("cm");
+            string hgtVal = passport.hgt.substr(0, cmPos);
+
+            if(std::stoi(hgtVal)<150 || std::stoi(hgtVal) > 193)  
+                {
+                 //   cout<<"incorrect height in cm:"<<hgtVal<<"^^. hgt:"<<passport.hgt<<"^^"<<endl;
+                    return false;
+            }
+        }
+        else if(passport.hgt.find("in") !=std::string::npos)
+        {
+            int inPos = passport.hgt.find("in");
+            string hgtVal = passport.hgt.substr(0, inPos);
+            if(std::stoi(hgtVal)<59 || std::stoi(hgtVal) > 76)  
+                {
+                  //  cout<<"incorrect height in in:"<<hgtVal<<"^^. hgt:"<<passport.hgt<<"^^"<<endl;
+                    return false;
+            }
+        }
+
+        if(passport.hcl.length() != 7) {
+                    cout<<"hcl:"<<passport.hcl<<endl;;
+            return false;
+        }
+        else if(passport.hcl[0] != '#') {
+                    cout<<"hcl:"<<passport.hcl<<endl;;
+
+            return false;
+        }
+        else
+        {
+                    cout<<"hcl:"<<passport.hcl<<endl;;
+
+            for(unsigned int i=1; i< passport.hcl.length(); i++)
+            {
+                if(passport.hcl[i] <48) {
+                    cout<<"0 hcl[i]:"<<passport.hcl[i]<<endl;;
+                    return false;
+                } 
+                else if( passport.hcl[i] >57 && passport.hcl[i] <97) {
+                    cout<<"1 hcl[i]:"<<passport.hcl[i]<<endl;;
+
+                    return false;
+                } 
+                else if( passport.hcl[i] >102) {
+                    cout<<"2 hcl[i]:"<<passport.hcl[i]<<endl;;
+
+                    return false;
+                }     
+            }
+        }
+
+        if(passport.ecl !=  "amb" && passport.ecl != "blu" && passport.ecl != "brn" && passport.ecl != "gry" && passport.ecl != "grn" && passport.ecl != "hzl" && passport.ecl != "oth")
+        {return false;}
+
+        if(passport.pid.length() != 9)
+        {return false;}
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    return true;
+
+}
+
+int processTask_2020_04_B( std::vector<task2020_04_passport>& passports)
+{
+    int result = 0;
+
+    //        std::vector<task2020_04_passport> passports;
+    //getListOfPassports(inputData, passports);
+
+    //cout<<"Number of passports:"<<passports.size()<<endl;
+
+    //for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
+    //{
+    //    fillOutFields(*passport);
+    //}
+
+    for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
+    {
+        if(validatePassport(*passport))
+        {
+            result++;
+        }
+    }
+
+    return result;
+}

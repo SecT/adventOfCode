@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <utility>
 
 using std::cout;
 using std::endl;
@@ -42,3 +43,25 @@ bool testTask_2020_03_A(int result);
 bool testTask_2020_03_B(int result);
 int processTask_2020_03_A(std::vector<string> inputData);
 int processTask_2020_03_B(std::vector<string> inputData);
+
+///////////////////////////////////////TASK 2020 04////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_04(std::vector<string>& inputData);
+bool testTask_2020_04_A(int result);
+bool testTask_2020_04_B(int result);
+bool testTask_2020_04_A_example(int result);
+bool testTask_2020_04_B_example_valid(int result);
+
+
+struct task2020_04_passport
+{
+    string content;
+    std::vector<std::pair<string,string>> fields;
+    string byr, iyr, eyr, hgt; 
+    string  hcl, ecl, pid;
+};
+bool test_getListOfPassports();
+bool test_fillOutFields();
+
+int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2020_04_passport>& validPassports);
+
+int processTask_2020_04_B( std::vector<task2020_04_passport>& validPassports);
