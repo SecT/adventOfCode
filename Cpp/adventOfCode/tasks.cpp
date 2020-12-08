@@ -441,7 +441,7 @@ int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2
         if((*passport).fields.size() == 8)
         {
             result++;
-                validPassports.push_back(*passport);
+            validPassports.push_back(*passport);
 
             continue;
         }
@@ -496,8 +496,8 @@ bool validatePassport(task2020_04_passport& passport)
             string hgtVal = passport.hgt.substr(0, cmPos);
 
             if(std::stoi(hgtVal)<150 || std::stoi(hgtVal) > 193)  
-                {
-                    return false;
+            {
+                return false;
             }
         }
         else if(passport.hgt.find("in") !=std::string::npos)
@@ -505,11 +505,11 @@ bool validatePassport(task2020_04_passport& passport)
             int inPos = passport.hgt.find("in");
             string hgtVal = passport.hgt.substr(0, inPos);
             if(std::stoi(hgtVal)<59 || std::stoi(hgtVal) > 76)  
-                {
-                    return false;
+            {
+                return false;
             }
         }
-        
+
         if(passport.hgt.find("cm") == std::string::npos && passport.hgt.find("in") == std::string::npos) 
         {return false;}
 

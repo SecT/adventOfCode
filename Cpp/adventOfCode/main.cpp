@@ -229,16 +229,16 @@ bool task_2020_04()
         return false;
     }
 
-        std::vector<task2020_04_passport> validPassportsExample_B;
-       int result_example_B =   processTask_2020_04_A(exampleInputData_valid, validPassportsExample_B);
+    std::vector<task2020_04_passport> validPassportsExample_B;
+    int result_example_B =   processTask_2020_04_A(exampleInputData_valid, validPassportsExample_B);
 
-       if(result_example_B != 4)
-       {
+    if(result_example_B != 4)
+    {
         cout<<"task 2020 04 Example valid failed! Incorrect passport count. Obtained result:"<<result_example_B<<endl;
         return false;    
-       }
+    }
 
-       result_example_B = processTask_2020_04_B(validPassportsExample_B);
+    result_example_B = processTask_2020_04_B(validPassportsExample_B);
 
     if(!testTask_2020_04_B_example_valid(result_example_B))
     {
@@ -247,16 +247,16 @@ bool task_2020_04()
     }
 
     //
-            std::vector<task2020_04_passport> invalidPassportsExample_B;
-        result_example_B =   processTask_2020_04_A(exampleInputData_invalid, invalidPassportsExample_B);
+    std::vector<task2020_04_passport> invalidPassportsExample_B;
+    result_example_B =   processTask_2020_04_A(exampleInputData_invalid, invalidPassportsExample_B);
 
-       if(result_example_B != 4)
-       {
+    if(result_example_B != 4)
+    {
         cout<<"task 2020 04 Example invalid failed! Incorrect passport count. Obtained result:"<<result_example_B<<endl;
         return false;    
-       }
+    }
 
-       result_example_B = processTask_2020_04_B(invalidPassportsExample_B);
+    result_example_B = processTask_2020_04_B(invalidPassportsExample_B);
 
     if(!testTask_2020_04_B_example_invalid(result_example_B))
     {
@@ -289,7 +289,7 @@ int main()
         return 0;
     }
 
-    
+
     if(!test_trimWhitespace())
     {
         cout<<"trim whitespace test failed !"<<endl;
