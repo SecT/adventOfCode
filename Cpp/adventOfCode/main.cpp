@@ -183,6 +183,14 @@ bool task_2020_04()
         return false;
     }
 
+    std::vector<std::string> exampleInputData_invalid;
+    string exampleFilePath_invalid = "input_2020_Task_04_example_B_invalid.txt";
+    if(!readLinesFromFileToVector(exampleInputData_invalid, exampleFilePath_invalid))
+    {
+        cout<<"Error reading file: "<<exampleFilePath_invalid<<endl;
+        return false;
+    }
+
     if(!testReadingFileForTask_2020_04(inputData))
     {
         cout<<"File reading test failed!"<<endl;
@@ -226,7 +234,7 @@ bool task_2020_04()
 
        if(result_example_B != 4)
        {
-        cout<<"task 2020 04 Example valid failed! Incorrect password count. Obtained result:"<<result_example_B<<endl;
+        cout<<"task 2020 04 Example valid failed! Incorrect passport count. Obtained result:"<<result_example_B<<endl;
         return false;    
        }
 
@@ -238,15 +246,34 @@ bool task_2020_04()
         return false;
     }
 
-    //int result_B = processTask_2020_04_B(validPassports);
+    //
+            std::vector<task2020_04_passport> invalidPassportsExample_B;
+        result_example_B =   processTask_2020_04_A(exampleInputData_invalid, invalidPassportsExample_B);
 
-    //cout<<"Task 2020 04 B result: "<<result_B<<endl; 
+       if(result_example_B != 4)
+       {
+        cout<<"task 2020 04 Example invalid failed! Incorrect passport count. Obtained result:"<<result_example_B<<endl;
+        return false;    
+       }
 
-    //if(!testTask_2020_04_B(result_B))
-    //{
-    //    cout<<"task 2020 04 B failed!"<<endl;
-    //    return false;
-    //}
+       result_example_B = processTask_2020_04_B(invalidPassportsExample_B);
+
+    if(!testTask_2020_04_B_example_invalid(result_example_B))
+    {
+        cout<<"task 2020 04 Example invalid failed! Obtained result:"<<result_example_B<<endl;
+        return false;
+    }
+
+
+    int result_B = processTask_2020_04_B(validPassports);
+
+    cout<<"Task 2020 04 B result: "<<result_B<<endl; 
+
+    if(!testTask_2020_04_B(result_B))
+    {
+        cout<<"task 2020 04 B failed!"<<endl;
+        return false;
+    }
 
     return true;
 }

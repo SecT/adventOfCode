@@ -281,7 +281,7 @@ bool testTask_2020_04_A_example(int result)
 
 bool testTask_2020_04_B(int result)
 {
-    return result == 0;
+    return result == 101;
 }
 
 bool testTask_2020_04_B_example_valid(int result)
@@ -289,6 +289,10 @@ bool testTask_2020_04_B_example_valid(int result)
     return result == 4;
 }
 
+bool testTask_2020_04_B_example_invalid(int result)
+{
+    return result == 0;
+}
 
 
 void getListOfPassports(std::vector<std::string>& inputData, std::vector<task2020_04_passport>& passports)
@@ -383,12 +387,12 @@ void fillOutFields(task2020_04_passport& passport)
 
         passport.fields.push_back(std::make_pair(keyVal[0], keyVal[1]));
 
-        if(keyVal[0] == "byr") passport.byr = keyVal[1];
-        if(keyVal[0] == "iyr") passport.iyr = keyVal[1];
-        if(keyVal[0] == "eyr") passport.eyr = keyVal[1];
+        if(keyVal[0] == "byr") {passport.byr = keyVal[1]; continue; }
+        if(keyVal[0] == "iyr") {passport.iyr = keyVal[1]; continue; }
+        if(keyVal[0] == "eyr") {passport.eyr = keyVal[1]; continue; }
         if(keyVal[0] == "hgt") 
         {
-            passport.hgt = passport.eyr = keyVal[1];
+            passport.hgt = keyVal[1];
             //passport.hgtUnit = keyVal[1].substr(keyVal[1].length()-2, keyVal[1].length()-1);
 
             //string heightValAsStr = keyVal[1].substr(0, keyVal[1].length()-2);
@@ -427,8 +431,6 @@ int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2
     std::vector<task2020_04_passport> passports;
     getListOfPassports(inputData, passports);
 
-    cout<<"Number of passports:"<<passports.size()<<endl;
-
     for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
     {
         fillOutFields(*passport);
@@ -439,6 +441,8 @@ int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2
         if((*passport).fields.size() == 8)
         {
             result++;
+                validPassports.push_back(*passport);
+
             continue;
         }
 
@@ -467,6 +471,13 @@ int processTask_2020_04_A(std::vector<std::string>& inputData, std::vector<task2
     return result;
 }
 
+bool is_number(const std::string& s)
+{
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
 bool validatePassport(task2020_04_passport& passport)
 {
     try{
@@ -486,7 +497,6 @@ bool validatePassport(task2020_04_passport& passport)
 
             if(std::stoi(hgtVal)<150 || std::stoi(hgtVal) > 193)  
                 {
-                 //   cout<<"incorrect height in cm:"<<hgtVal<<"^^. hgt:"<<passport.hgt<<"^^"<<endl;
                     return false;
             }
         }
@@ -496,48 +506,58 @@ bool validatePassport(task2020_04_passport& passport)
             string hgtVal = passport.hgt.substr(0, inPos);
             if(std::stoi(hgtVal)<59 || std::stoi(hgtVal) > 76)  
                 {
-                  //  cout<<"incorrect height in in:"<<hgtVal<<"^^. hgt:"<<passport.hgt<<"^^"<<endl;
                     return false;
             }
         }
+        
+        if(passport.hgt.find("cm") == std::string::npos && passport.hgt.find("in") == std::string::npos) 
+        {return false;}
+
 
         if(passport.hcl.length() != 7) {
-                    cout<<"hcl:"<<passport.hcl<<endl;;
             return false;
         }
         else if(passport.hcl[0] != '#') {
-                    cout<<"hcl:"<<passport.hcl<<endl;;
-
             return false;
         }
         else
         {
-                    cout<<"hcl:"<<passport.hcl<<endl;;
 
             for(unsigned int i=1; i< passport.hcl.length(); i++)
             {
                 if(passport.hcl[i] <48) {
-                    cout<<"0 hcl[i]:"<<passport.hcl[i]<<endl;;
                     return false;
                 } 
                 else if( passport.hcl[i] >57 && passport.hcl[i] <97) {
-                    cout<<"1 hcl[i]:"<<passport.hcl[i]<<endl;;
 
                     return false;
                 } 
                 else if( passport.hcl[i] >102) {
-                    cout<<"2 hcl[i]:"<<passport.hcl[i]<<endl;;
 
                     return false;
-                }     
+                }
+                else
+                {
+                }
             }
         }
 
         if(passport.ecl !=  "amb" && passport.ecl != "blu" && passport.ecl != "brn" && passport.ecl != "gry" && passport.ecl != "grn" && passport.ecl != "hzl" && passport.ecl != "oth")
         {return false;}
+        else
+        {
+        }
 
         if(passport.pid.length() != 9)
-        {return false;}
+        {return false;} 
+        else 
+        {
+        } 
+        if(!is_number(passport.pid))
+        {
+            return false;
+        }
+
     }
     catch (...)
     {
@@ -551,16 +571,6 @@ bool validatePassport(task2020_04_passport& passport)
 int processTask_2020_04_B( std::vector<task2020_04_passport>& passports)
 {
     int result = 0;
-
-    //        std::vector<task2020_04_passport> passports;
-    //getListOfPassports(inputData, passports);
-
-    //cout<<"Number of passports:"<<passports.size()<<endl;
-
-    //for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
-    //{
-    //    fillOutFields(*passport);
-    //}
 
     for(std::vector<task2020_04_passport>::iterator passport = passports.begin(); passport != passports.end(); passport++)
     {

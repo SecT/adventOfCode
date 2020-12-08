@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <utility>
+#include <cctype>
 
 using std::cout;
 using std::endl;
@@ -50,6 +51,8 @@ bool testTask_2020_04_A(int result);
 bool testTask_2020_04_B(int result);
 bool testTask_2020_04_A_example(int result);
 bool testTask_2020_04_B_example_valid(int result);
+bool testTask_2020_04_B_example_invalid(int result);
+
 
 
 struct task2020_04_passport
