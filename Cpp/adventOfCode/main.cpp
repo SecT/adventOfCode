@@ -327,6 +327,17 @@ bool task_2020_05()
 
     cout<<"Task 2020 05 A result: "<<result_A<<endl;  
 
+
+    int result_B = processTask_2020_05_B(inputData);
+
+    if(!testTask_2020_05_B(result_B))
+    {
+        cout<<"task 2020 05 B failed! Obtained result:"<<result_B<<endl;
+        return false;
+    }
+
+    cout<<"Task 2020 05 B result: "<<result_B<<endl; 
+
     return true;
 }
 

@@ -599,12 +599,12 @@ bool testTask_2020_05_A(int result)
 
 bool testTask_2020_05_B(int result)
 {
-    return result == 0;
+    return result == 552;
 }
 
 string convertCodeToBinaryString(string input)
 {
-        string binaryCode = "";
+    string binaryCode = "";
 
     for(unsigned int i =0 ; i<input.length(); i++)
     {
@@ -633,7 +633,7 @@ int convertBinaryStringToDec(string binaryString)
             val -= std::pow(2.0, currentExp);
 
         }
-            currentExp--;
+        currentExp--;
 
     }
 
@@ -646,7 +646,7 @@ int calculateRow(string input)
 
     input = convertCodeToBinaryString(input);
     row = convertBinaryStringToDec(input);
-    
+
 
     return row;
 }
@@ -684,7 +684,7 @@ bool test_calculateCol()
     {
         return true;
     }
-        else
+    else
     {
         cout<<"calculateCol val:"<<val<<endl;
     }
@@ -749,6 +749,48 @@ int processTask_2020_05_A( std::vector<string> inputData)
 int processTask_2020_05_B( std::vector<string> inputData)
 {
     int result = 0;
+
+    std::vector<int> seatIDs;
+
+    for(auto i = inputData.begin(); i != inputData.end(); i++)
+    {
+        seatIDs.push_back(calculateSeatIdFromString(*i));
+    }
+
+    std::vector<int> potentialSeats;
+
+    for(auto seatId = seatIDs.begin(); seatId != seatIDs.end(); seatId++)
+    {
+        for(auto j = seatIDs.begin(); j != seatIDs.end(); j++)
+        {
+            if( (*seatId) == (*j) - 2)
+            {
+                potentialSeats.push_back((*seatId)+1);
+            }
+
+            if( (*seatId) == (*j) + 2)
+            {
+                potentialSeats.push_back((*seatId)-1);
+            }
+        }
+    }
+
+    for(auto potentialSeat = potentialSeats.begin(); potentialSeat != potentialSeats.end(); potentialSeat++)
+    {
+        bool foundInSeatIDs = false;
+        for(auto seatId = seatIDs.begin(); seatId != seatIDs.end(); seatId++)
+        {
+            if( (*potentialSeat) == (*seatId) )
+            {
+                foundInSeatIDs = true;
+            }
+        }
+
+        if(!foundInSeatIDs)
+        {
+            result = (*potentialSeat);
+        }
+    }
 
     return result;
 }
