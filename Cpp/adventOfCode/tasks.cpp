@@ -23,7 +23,7 @@ bool testTask_2020_01_B(int result)
     return result == 287503934;
 }
 
-int processTask_2020_01_A(std::vector<std::string> inputData)
+int processTask_2020_01_A(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -44,7 +44,7 @@ int processTask_2020_01_A(std::vector<std::string> inputData)
     return result;
 }
 
-int processTask_2020_01_B(std::vector<std::string> inputData)
+int processTask_2020_01_B(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -94,7 +94,7 @@ bool testTask_2020_02_B(int result)
     return result == 428;
 }
 
-int processTask_2020_02_A(std::vector<std::string> inputData)
+int processTask_2020_02_A(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -119,7 +119,7 @@ int processTask_2020_02_A(std::vector<std::string> inputData)
     return inputData.size() - invalidPasswordCount;
 }
 
-int processTask_2020_02_B(std::vector<std::string> inputData)
+int processTask_2020_02_B(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -206,7 +206,7 @@ bool testTask_2020_03_B(int result)
     return result == 736527114;
 }
 
-int calculateTreesOnPath(std::vector<std::string> inputData, int startX, int startY, int dX, int dY)
+int calculateTreesOnPath(std::vector<std::string>& inputData, int startX, int startY, int dX, int dY)
 {
     int treeCount = 0;
 
@@ -227,7 +227,7 @@ int calculateTreesOnPath(std::vector<std::string> inputData, int startX, int sta
     return treeCount;
 }
 
-int processTask_2020_03_A(std::vector<std::string> inputData)
+int processTask_2020_03_A(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -236,7 +236,7 @@ int processTask_2020_03_A(std::vector<std::string> inputData)
     return result;
 }
 
-int processTask_2020_03_B(std::vector<std::string> inputData)
+int processTask_2020_03_B(std::vector<std::string>& inputData)
 {
     int result = 0;
 
@@ -728,7 +728,7 @@ bool test_calculateSeatIdFromString()
     return true;
 }
 
-int processTask_2020_05_A( std::vector<string> inputData)
+int processTask_2020_05_A( std::vector<string>& inputData)
 {
 
     int currentMax = 0;
@@ -746,7 +746,7 @@ int processTask_2020_05_A( std::vector<string> inputData)
     return currentMax;
 }
 
-int processTask_2020_05_B( std::vector<string> inputData)
+int processTask_2020_05_B( std::vector<string>& inputData)
 {
     int result = 0;
 
@@ -854,7 +854,6 @@ void getGroupsFromInput(std::vector<string>& inputData, std::vector<std::vector<
             if(line+1 == inputData.end() && readingGroup)
             {
                 //last line in file
-                
 
                 currentGroup.push_back( (*line));
                 output.push_back(currentGroup);
@@ -913,7 +912,7 @@ bool test_getSumOfPositiveAnswersForGroup()
     return false;
 }
 
-int processTask_2020_06_A( std::vector<string> inputData)
+int processTask_2020_06_A( std::vector<string>& inputData)
 {
     int result = 0;
 
@@ -930,7 +929,7 @@ int processTask_2020_06_A( std::vector<string> inputData)
     return result;
 }
 
-int processTask_2020_06_B( std::vector<string> inputData)
+int processTask_2020_06_B( std::vector<string>& inputData)
 {
     int result = 0;
 
