@@ -823,7 +823,7 @@ bool testTask_2020_06_A(int result)
 
 bool testTask_2020_06_B(int result)
 {
-    return result == 0;
+    return result == 3219;
 }
 
 void getGroupsFromInput(std::vector<string>& inputData, std::vector<std::vector<string>>& output)
@@ -897,6 +897,30 @@ int getSumOfPositiveAnswersForGroup(std::vector<string>& group)
     return answersForGroup.size();
 }
 
+int getSumOfPositiveAnswersForWholeGroup(std::vector<string>& group)
+{
+    int result = 0;
+
+    string answersCombined = "";
+
+    for(auto answersForPerson = group.begin(); answersForPerson != group.end(); answersForPerson++)
+    {
+        answersCombined+= (*answersForPerson);
+    }
+
+    std::set<char>answersPresent( begin( answersCombined ) , end( answersCombined ) );
+
+    for(auto answer = answersPresent.begin(); answer != answersPresent.end(); answer++)
+    {
+        if(std::count(answersCombined.begin(), answersCombined.end(), (*answer) ) == group.size())
+        {
+            result++;
+        }
+    }
+
+    return result;
+}
+
 bool test_getSumOfPositiveAnswersForGroup()
 {
     std::vector<string> group;
@@ -932,6 +956,16 @@ int processTask_2020_06_A( std::vector<string>& inputData)
 int processTask_2020_06_B( std::vector<string>& inputData)
 {
     int result = 0;
+
+    std::vector<std::vector<string>> groups;
+
+    getGroupsFromInput(inputData, groups);
+
+    for(auto group = groups.begin(); group != groups.end(); group++)
+    {
+     int sum = getSumOfPositiveAnswersForWholeGroup(*group);
+     result+= sum;
+    }
 
     return result;
 }
