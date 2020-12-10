@@ -341,6 +341,70 @@ bool task_2020_05()
     return true;
 }
 
+bool task_2020_06()
+{
+        std::vector<std::string> inputData;
+    string filePath = "input_2020_Task_06.txt";
+    if(!readLinesFromFileToVector(inputData, filePath))
+    {
+        cout<<"Error reading file: "<<filePath<<endl;
+        return false;
+    }
+
+        if(!testReadingFileForTask_2020_06(inputData))
+    {
+        cout<<"File reading test failed!"<<endl;
+        return false;
+    }
+
+    if(!test_getSumOfPositiveAnswersForGroup())
+    {
+            cout<<"test_getSumOfPositiveAnswersForGroup failed!"<<endl;    
+        return false;
+    }
+
+////example
+        std::vector<std::string> exampleInputData;
+    string exampleFilePath = "input_2020_Task_06_example_A.txt";
+    if(!readLinesFromFileToVector(exampleInputData, exampleFilePath))
+    {
+        cout<<"Error reading file: "<<exampleFilePath<<endl;
+        return false;
+    }
+
+            int result_example_A = processTask_2020_06_A(exampleInputData);
+    if(!testTask_2020_06_A_example(result_example_A))
+    {
+        cout<<"task 2020 06 example A failed! Obtained result:"<<result_example_A<<endl;
+        return false;
+    }
+///
+
+
+
+            int result_A = processTask_2020_06_A(inputData);
+
+    if(!testTask_2020_06_A(result_A))
+    {
+        cout<<"task 2020 06 A failed! Obtained result:"<<result_A<<endl;
+        return false;
+    }
+
+    cout<<"Task 2020 05 A result: "<<result_A<<endl;  
+
+            int result_B = processTask_2020_06_B(inputData);
+
+    if(!testTask_2020_06_B(result_B))
+    {
+        cout<<"task 2020 06 B failed! Obtained result:"<<result_B<<endl;
+        return false;
+    }
+
+    cout<<"Task 2020 06 B result: "<<result_B<<endl; 
+
+    return true;
+}
+
 int main()
 {
     cout<<"Advent of Code"<<endl;
@@ -365,7 +429,8 @@ int main()
     task_2020_02();
     task_2020_03();
     task_2020_04();
-    task_2020_05();
+//    task_2020_05();
+    task_2020_06();
 
 
     cout<<"End"<<endl;

@@ -581,7 +581,7 @@ int processTask_2020_04_B( std::vector<task2020_04_passport>& passports)
     return result;
 }
 
-///////////////////////////////////////TASK 2020 04////////////////////////////////////////////////////////
+///////////////////////////////////////TASK 2020 05////////////////////////////////////////////////////////
 bool testReadingFileForTask_2020_05(std::vector<string>& inputData)
 {
     if(inputData[0] != "FFFBFBFLRR" || inputData[1] != "FFBBFFFRLL" || inputData[inputData.size()-1] != "FFBBBFBRLL")
@@ -791,6 +791,148 @@ int processTask_2020_05_B( std::vector<string> inputData)
             result = (*potentialSeat);
         }
     }
+
+    return result;
+}
+
+///////////////////////////////////////TASK 2020 06////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_06(std::vector<string>& inputData)
+{
+    if(inputData[0] != "zvxc" || inputData[1] != "dv" || inputData[inputData.size()-1] != "gdrakz")
+    {
+        cout<<"2020_06 "<<inputData[0]<<" "<<inputData[1]<<" "<<inputData[inputData.size()-1]<<endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool testTask_2020_06_A_example(int result)
+{
+    if(result != 11)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool testTask_2020_06_A(int result)
+{
+    return result == 6596;
+}
+
+bool testTask_2020_06_B(int result)
+{
+    return result == 0;
+}
+
+void getGroupsFromInput(std::vector<string>& inputData, std::vector<std::vector<string>>& output)
+{
+
+        bool readingGroup = false;
+
+    std::vector<string> currentGroup;
+
+    for(std::vector<std::string>::iterator line = inputData.begin(); line != inputData.end(); line++)
+    {
+
+
+        if(*line != "")
+        {
+            if(!readingGroup)
+            {
+                readingGroup = true;
+            }
+
+            if(readingGroup && line+1 != inputData.end())
+            {
+                currentGroup.push_back( (*line));
+
+                
+            }
+
+            if(line+1 == inputData.end() && readingGroup)
+            {
+                //last line in file
+                
+
+                currentGroup.push_back( (*line));
+                output.push_back(currentGroup);
+                currentGroup.clear();
+                readingGroup = false;
+            }
+
+            continue;
+        }
+
+        if(*line == "")
+        {
+            if(readingGroup)
+            {
+                output.push_back(currentGroup);
+                currentGroup.clear();
+
+                readingGroup = false;
+                continue;
+            }
+        }
+
+    }
+
+}
+
+int getSumOfPositiveAnswersForGroup(std::vector<string>& group)
+{
+    int result = 0;
+
+    string answersCombined = "";
+
+    for(auto answersForPerson = group.begin(); answersForPerson != group.end(); answersForPerson++)
+    {
+    answersCombined+= (*answersForPerson);
+    }
+
+
+    std::set<char>answersForGroup( begin( answersCombined ) , end( answersCombined ) );
+
+    return answersForGroup.size();
+}
+
+bool test_getSumOfPositiveAnswersForGroup()
+{
+    std::vector<string> group;
+
+    group.push_back("ab");
+    group.push_back("ac");
+
+    if(getSumOfPositiveAnswersForGroup(group) == 3)
+    {
+    return true;
+    }
+
+    return false;
+}
+
+int processTask_2020_06_A( std::vector<string> inputData)
+{
+    int result = 0;
+
+    std::vector<std::vector<string>> groups;
+
+    getGroupsFromInput(inputData, groups);
+
+    for(auto group = groups.begin(); group != groups.end(); group++)
+    {
+     int sum = getSumOfPositiveAnswersForGroup(*group);
+     result+= sum;
+    }
+
+    return result;
+}
+
+int processTask_2020_06_B( std::vector<string> inputData)
+{
+    int result = 0;
 
     return result;
 }

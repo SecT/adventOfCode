@@ -7,6 +7,7 @@
 #include <utility>
 #include <cctype>
 #include <cmath>
+#include <set>
 
 using std::cout;
 using std::endl;
@@ -79,3 +80,13 @@ bool test_calculateCol();
 
 int processTask_2020_05_A(std::vector<string> inputData);
 int processTask_2020_05_B(std::vector<string> inputData);
+
+///////////////////////////////////////TASK 2020 06////////////////////////////////////////////////////////
+bool testReadingFileForTask_2020_06(std::vector<string>& inputData);
+bool testTask_2020_06_A(int result);
+bool testTask_2020_06_B(int result);
+bool testTask_2020_06_A_example(int result);
+bool test_getSumOfPositiveAnswersForGroup();
+
+int processTask_2020_06_A(std::vector<string> inputData);
+int processTask_2020_06_B(std::vector<string> inputData);
